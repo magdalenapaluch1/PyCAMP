@@ -1,0 +1,32 @@
+[
+  {
+    "question": "Ile Tuciak ma lat?",
+    "answers": [
+        10,
+        17,
+        31,
+        32
+    ],
+    "right answer": "d"
+  },
+    {
+    "question": "Ile Magda ma lat?",
+    "answers": [
+        10,
+        17,
+        30,
+        32
+    ],
+    "right answer": "c"
+  },
+  {
+    "question": "Co ma Ala?",
+    "answers": [
+        "psa",
+        "kota",
+        "rybki",
+        "wilka"
+    ],
+    "right answer": "b"
+  }
+]
