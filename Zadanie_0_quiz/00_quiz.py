@@ -3,25 +3,34 @@ import datetime
 
 from QuestionSet import QuestionSet
 
-SCORE_FILE = "results.json"
+SCORE_FILENAME = "results.json"
 
-def SaveScore(name, score):
-    with open(SCORE_FILE, 'r') as scores_file:
+def SaveScore(name, new_score):
+    with open(SCORE_FILENAME, 'r') as scores_file:
         current_scores = json.load(scores_file)
 
-    user_score_dict = {"name": name, "score": score, "timestamp": datetime.datetime.now()}
-    current_scores.append(user_score_dict)
+    name_already_in_list = False
+    for score in current_scores:
+        if name == score["name"]:
+            name_already_in_list = True
+            if new_score > score["score"]:
+                score["score"] = new_score
+                score["timestamp"] = datetime.datetime.now()
+
+    if not name_already_in_list:
+        user_score_dict = {"name": name, "score": new_score, "timestamp": datetime.datetime.now()}
+        current_scores.append(user_score_dict)
 
     current_scores_sorted = sorted(current_scores, key=lambda d: d['score'], reverse=True)
 
-    with open(SCORE_FILE, 'w') as scores_file:
+    with open(SCORE_FILENAME, 'w') as scores_file:
         json.dump(current_scores_sorted, scores_file, default=str)
 
 
 def PrintTopScores(number):
     #wyświetlanie top wyników
     score_board_counter = 1
-    with open(SCORE_FILE, 'r') as scores_file:
+    with open(SCORE_FILENAME, 'r') as scores_file:
         scores_data = json.load(scores_file)
         print(f"Lista {number} najlepszych wyników: ")
 
@@ -62,6 +71,5 @@ if __name__ == "__main__":
     PrintTopScores(5)
 
 #TODO
-# sprawdzac czy uzytkownik juz jest w wynikach, jesli tak to aktualizowac wynik jesli lepszy
 # klasa user
 # zabezpieczenie danych
