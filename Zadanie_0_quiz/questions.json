@@ -1,32 +1,33 @@
 [
   {
-    "question": "Ile Tuciak ma lat?",
+    "question": "What is the SI unit of length?",
     "answers": [
-        10,
-        17,
-        31,
-        32
+        "m",
+        "ft",
+        "cm",
+        "in"
+    ],
+    "right answer": "a"
+  },
+    {
+    "question": "What is the capital city of USA?",
+    "answers": [
+        "Miami",
+        "New York",
+        "Los Angeles",
+        "Washington DC"
     ],
     "right answer": "d"
   },
-    {
-    "question": "Ile Magda ma lat?",
+  {
+    "question": "Which language is the official one in Brazil?",
     "answers": [
-        10,
-        17,
-        30,
-        32
+        "English",
+        "Spanish",
+        "Portuguese",
+        "Brazilian",
+		"Latin"
     ],
     "right answer": "c"
-  },
-  {
-    "question": "Co ma Ala?",
-    "answers": [
-        "psa",
-        "kota",
-        "rybki",
-        "wilka"
-    ],
-    "right answer": "b"
   }
 ]
