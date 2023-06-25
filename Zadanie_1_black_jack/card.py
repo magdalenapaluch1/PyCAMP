@@ -6,7 +6,7 @@ CARD_SYMBOLS = {'hearts': "\u2665", 'diamonds': "\u2666", 'spades': "\u2660", 'c
 class Card:
     """Card class. Creating new card. Card fields cannot change."""
     def __init__(self, name, color) -> None:
-        if name in CARD_NAMES and color in CARD_COLORS:
+        if (name in CARD_NAMES and color in CARD_COLORS):
             self._name = name
             self._color = color
         else:
@@ -14,3 +14,9 @@ class Card:
         
     def __str__(self):
         return self._name + CARD_SYMBOLS[self._color]
+    
+    def __repr__(self):
+        return self._name + CARD_SYMBOLS[self._color]
+    
+    def __eq__(self, other):
+        return self._name == other._name and self._color == other._color
