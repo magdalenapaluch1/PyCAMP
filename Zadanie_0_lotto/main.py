@@ -1,6 +1,12 @@
 import random
 
-def User_Choose_Numbers():
+LOTTO_WIN_PRICES = {"all numbers": 2000000,
+                    "5 numbers": 5300,
+                    "4 numbers": 170,
+                    "3 numbers": 24}
+
+
+def user_choose_numbers():
     set_user_numbers = set()
 
     # for num in range(6):
@@ -9,7 +15,8 @@ def User_Choose_Numbers():
     set_user_numbers = {3, 45, 34, 2, 13, 32}
     return set_user_numbers
 
-def Random_Lotto_Set():
+
+def random_lotto_set():
     set_lotto_numbers = set()
     while len(set_lotto_numbers) < 6:
         random_number = random.randint(1, 50)
@@ -17,18 +24,19 @@ def Random_Lotto_Set():
             set_lotto_numbers.add(random_number)
     return set_lotto_numbers
 
-def Draw_Until_Win(user_numbers):
+
+def draw_until_win(user_numbers):
     lotto_numbers = set()
-    i = 0
+    attempts = 0
     count_3 = 0
     count_4 = 0
     count_5 = 0
     while user_numbers != lotto_numbers:
-        lotto_numbers = Random_Lotto_Set()
-        i += 1
+        lotto_numbers = random_lotto_set()
+        attempts += 1
         intersection = user_numbers.intersection(lotto_numbers)
         if user_numbers == lotto_numbers:
-            print(f"Win! You won after {i} lotteries.")
+            print(f"Win! You won after {attempts} lotteries.")
         elif len(intersection) == 3:
             count_3 += 1
         elif len(intersection) == 4:
@@ -36,35 +44,51 @@ def Draw_Until_Win(user_numbers):
         elif len(intersection) == 5:
             count_5 += 1
 
-    print(f"You hit 3 in lottery {count_3} times.")
-    print(f"You hit 4 in lottery {count_4} times.")
-    print(f"You hit 5 in lottery {count_5} times.")
+    results = {"total_attempts": attempts,
+               "hit3": count_3,
+               "hit4": count_4,
+               "hit5": count_5}
 
-    return i
+    return results
 
-def Price_Of_Coupons(number_of_coupons):
+
+def price_of_coupons(number_of_coupons):
     one_coupon_price = 3
 
-    return (one_coupon_price * number_of_coupons)
+    return one_coupon_price * number_of_coupons
+
+
+def total_won_money(results: dict):
+
+    return LOTTO_WIN_PRICES['3 numbers'] * results['hit3'] + LOTTO_WIN_PRICES['4 numbers'] * results['hit4'] + \
+           LOTTO_WIN_PRICES['5 numbers'] * results['hit5'] + LOTTO_WIN_PRICES['all numbers']
+
+
+def print_results(results: dict):
+
+    print(f"You hit 3 in lottery {results['hit3']} times.")
+    print(f"You hit 4 in lottery {results['hit4']} times.")
+    print(f"You hit 5 in lottery {results['hit5']} times.")
+    print(f"You spent: {price_of_coupons(results['total_attempts']):,} PLN.")
+    print(f"Your total win is: {total_won_money(results):,} PLN.")
+
 
 if __name__ == '__main__':
 
     print("""
-    This is Lotto simulation.
-    One coupon costs 3PLN.
-    There are 3 lotteries in a week.
-    Let's see an example of playing continuously until win.
-    Good luck!
-    """)
+This is Lotto simulation.
+One coupon costs 3PLN.
+There are 3 lotteries in a week.
+Let's see an example of playing continuously until win.
+Good luck!
+""")
 
-    numbers = User_Choose_Numbers()
+    numbers = user_choose_numbers()
 
-    number_of_coupons = Draw_Until_Win(numbers)
+    all_results = draw_until_win(numbers)
 
-    print(f"You spent: {Price_Of_Coupons(number_of_coupons):,} PLN.")
+    print_results(all_results)
 
-#TODO
-#Kalkulacja opłacalności
-#zwrócić wyniki z funkcji Draw_To_Win
-#Określenie wartości wygranych
-
+# TODO
+# Czas potrzebny na główną wygraną
+# DOCString uzupelnic
