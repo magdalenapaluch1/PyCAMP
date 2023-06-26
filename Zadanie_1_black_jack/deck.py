@@ -14,7 +14,7 @@ class Deck:
         for card in self._card_list:
             card_string += str(card) + ' '
         return card_string
-    
+
     def shuffle(self) -> None:
         """Shuffle all deck"""
         if len(self._card_list) > 1:
@@ -23,8 +23,7 @@ class Deck:
     def draw_card(self) -> Card:
         """Draw card from deck, when there is anything to draw"""
         if len(self._card_list) > 0:
-            card = self._card_list[0]
-            del self._card_list[0]
+            card = self._card_list.pop(0)
         else:
             raise Exception("Deck is empty. Cannot draw next card.")
 
