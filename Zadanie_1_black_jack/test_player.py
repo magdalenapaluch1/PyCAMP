@@ -81,3 +81,61 @@ def test_Player_Human_Hand_Is_0_Hand_Value_Equals_10():
 
     with pytest.raises(Exception):
         human.get_hand_value()
+
+def test_Player_Human_Hand_2_Aces_Hand_Value_Equals_12():
+    human = Human("Wojtek")
+
+    human.hand.append(Card("A", "hearts"))
+    human.hand.append(Card("A", "spades"))
+
+    points = human.get_hand_value()
+
+    assert points == 12
+
+def test_Player_Human_Hand_3_Aces_Hand_Value_Equals_13():
+    human = Human("Wojtek")
+
+    human.hand.append(Card("A", "hearts"))
+    human.hand.append(Card("A", "spades"))
+    human.hand.append(Card("A", "diamonds"))
+
+    points = human.get_hand_value()
+
+    assert points == 13
+
+def test_Player_Human_Hand_3_Aces_And_7_Hand_Value_Equals_20():
+    human = Human("Wojtek")
+
+    human.hand.append(Card("A", "hearts"))
+    human.hand.append(Card("A", "spades"))
+    human.hand.append(Card("A", "diamonds"))
+    human.hand.append(Card("7", "diamonds"))
+
+    points = human.get_hand_value()
+
+    assert points == 20
+
+def test_Player_Human_Hand_3_Aces_And_K_Hand_Value_Equals_13():
+    human = Human("Wojtek")
+
+    human.hand.append(Card("A", "hearts"))
+    human.hand.append(Card("A", "spades"))
+    human.hand.append(Card("A", "diamonds"))
+    human.hand.append(Card("K", "diamonds"))
+
+    points = human.get_hand_value()
+
+    assert points == 13
+
+def test_Player_Human_Hand_3_Aces_3_Kings_Hand_Value_Equals_23():
+    human = Human("Wojtek")
+
+    human.hand.append(Card("A", "hearts"))
+    human.hand.append(Card("A", "spades"))
+    human.hand.append(Card("A", "diamonds"))
+    human.hand.append(Card("K", "spades"))
+    human.hand.append(Card("K", "diamonds"))
+
+    points = human.get_hand_value()
+
+    assert points == 23

@@ -13,20 +13,29 @@ class Player:
     def get_hand_value(self) -> int:
         """Return sum of card points on players hand"""
         player_points = 0
+        aces_in_hand = 0
 
         for card in self.hand:
             if (card._name == "J" or card._name == "Q" or card._name == "K"):
                 player_points += 10
-            elif (card._name == "A" and len(self.hand) <= 2):
+            elif card._name == "A":
                 player_points += 11
-            elif (card._name == "A" and len(self.hand) > 2):
-                player_points += 1
+                aces_in_hand += 1
             elif (int(card._name) >= 2 and int(card._name) <= 10):
                 player_points += int(card._name)
             else:
                 raise Exception('Invalid card in hand.')
 
+        if aces_in_hand > 0 and player_points > 21:
+            aces_remaining = aces_in_hand
+            while aces_remaining > 0 and player_points > 21:
+                player_points -= 10
+                aces_remaining -= 1
+            
         return player_points
+    
+    def show_hand(self):
+        print(self.name, "cards:" , self.hand)
 
 class Human(Player):
     """Human player"""
@@ -39,3 +48,6 @@ class Croupier(Player):
     def __init__(self) -> None:
         super().__init__()
         self.name = "Croupier"
+
+    def show_first_hand(self):
+        print(self.name, " cards: [", self.hand[0], ", #]", sep='')
