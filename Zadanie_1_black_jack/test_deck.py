@@ -40,4 +40,4 @@ def test_try_to_draw_53_cards():
         for i in range(53):
             new_deck.draw_card()
 
-        assert len(new_deck._card_list) == 0
+    assert len(new_deck._card_list) == 0

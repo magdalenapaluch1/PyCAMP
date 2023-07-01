@@ -36,6 +36,19 @@ def test_Croupier_Decision_Stands_Not_Busted():
     assert test_bust is False
     assert len(game.croupier.hand) == 3
 
+def test_Human_Hand_Equals_21():
+    game = Game()
+
+    game.prepare("Wojtek")
+
+    game.human.hand.append(Card("A", "spades"))
+    game.human.hand.append(Card("10", "hearts"))
+
+    test_bust = game.human_decision()
+
+    assert test_bust is False
+    assert len(game.human.hand) == 2
+
 # TODO create test with mocks
 # def test_Croupier_Decision_Hits_Busted():
 #     game = Game()

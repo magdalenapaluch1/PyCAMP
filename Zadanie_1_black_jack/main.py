@@ -18,6 +18,3 @@ if __name__ == '__main__':
     croupier_bust = game.croupier_decision()
 
     game.check_result(human_bust, croupier_bust)
-
-    #TODO
-    # jesli od razu 21 to brak wyboru uzytkownika

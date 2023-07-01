@@ -26,21 +26,24 @@ class Game:
         decision = None
         bust = False
 
-        while decision != "s":
-            decision = input("(s)tand or (h)it? ")
+        if self.human.get_hand_value() != 21:
+            while decision != "s":
+                decision = input("(s)tand or (h)it? ")
 
-            if decision == 's':
-                pass
-            elif decision == 'h':
-                self.human.draw_card(self.deck)
-                print("Your cards: ", self.human.hand)
+                if decision == 's':
+                    pass
+                elif decision == 'h':
+                    self.human.draw_card(self.deck)
+                    print("Your cards: ", self.human.hand)
 
-                if self.human.get_hand_value() > 21:
-                    bust = True
-                    break
+                    if self.human.get_hand_value() > 21:
+                        bust = True
+                        break
 
-            else:
-                print("Pardon?")
+                else:
+                    print("Pardon?")
+        else:
+            print("Black Jack!")
 
         return bust
     
