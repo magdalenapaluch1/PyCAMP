@@ -36,3 +36,10 @@ def test_print_valid_card_2_hearts():
     new_card = Card("2", "hearts")
 
     assert str(new_card) == "2♥"
+
+def test_repr_print_valid_card_2_and_3_hearts():
+    """Try to create valid card : 2 of hearts"""
+    new_card = Card("2", "hearts")
+    new_card2 = Card("3", "hearts")
+
+    assert str([new_card, new_card2]) == "[2♥, 3♥]"

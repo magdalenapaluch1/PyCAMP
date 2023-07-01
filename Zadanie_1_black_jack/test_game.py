@@ -1,6 +1,9 @@
 from game import *
 
-def test_Croupier_Decision_Stands_And_Busted():
+#####################################################################
+###########          croupier_decision() tests         ##############
+#####################################################################
+def test__croupier_decision__Stands_And_Busted():
     game = Game()
 
     game.prepare("Wojtek")
