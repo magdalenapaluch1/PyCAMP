@@ -34,8 +34,8 @@ class Player:
             
         return player_points
     
-    def show_hand(self):
-        print(self.name, "cards:" , self.hand)
+    def get_hand(self):
+        return self.name + " cards: " + str(self.hand)
 
 class Human(Player):
     """Human player"""
@@ -49,5 +49,5 @@ class Croupier(Player):
         super().__init__()
         self.name = "Croupier"
 
-    def show_first_hand(self):
-        print(self.name, " cards: [", self.hand[0], ", #]", sep='')
+    def get_first_hand(self):
+        return self.name + " cards: [" + str(self.hand[0]) + ", #]"
