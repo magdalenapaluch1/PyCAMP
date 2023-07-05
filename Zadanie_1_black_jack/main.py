@@ -5,9 +5,9 @@ from game import *
 
 if __name__ == '__main__':
 
-    game = Game()
+    game = Game(True)
 
-    name = input("What's your name?")
+    name = game.io.get_human_name()
 
     game.prepare(name)
 
