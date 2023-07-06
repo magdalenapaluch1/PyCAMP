@@ -23,8 +23,8 @@ class Game:
         self.human.draw_card(self.deck)
         self.croupier.draw_card(self.deck)
 
-        self.io.display(self.human.get_hand())
-        self.io.display(self.croupier.get_first_hand())
+        self.io.human_display(self.human.get_hand())
+        self.io.croupier_display(self.croupier.get_first_hand())
 
     def human_decision(self):
         decision = None
@@ -38,16 +38,16 @@ class Game:
                     pass
                 elif decision == 'h':
                     self.human.draw_card(self.deck)
-                    self.io.display("Your cards: " + str(self.human.hand))
+                    self.io.human_display("Your cards: " + str(self.human.hand))
 
                     if self.human.get_hand_value() > 21:
                         bust = True
                         break
 
                 else:
-                    self.io.display("Pardon?")
+                    self.io.game_display("Pardon?")
         else:
-            self.io.display("Black Jack!")
+            self.io.game_display("Black Jack!")
 
         return bust
     
@@ -62,19 +62,19 @@ class Game:
         return bust
 
     def check_result(self, human_bust, croupier_bust):
-        self.io.display("Game finished!")
-        self.io.display(self.human.get_hand())
-        self.io.display(self.croupier.get_hand())
+        self.io.game_display("Game finished!")
+        self.io.human_display(self.human.get_hand())
+        self.io.croupier_display(self.croupier.get_hand())
 
         if human_bust != True:
             if (self.human.get_hand_value() > self.croupier.get_hand_value()):
-                self.io.display(str(self.human.name) + " wins!")
+                self.io.game_display(str(self.human.name) + " wins!")
             elif (self.human.get_hand_value() == self.croupier.get_hand_value()):
-                self.io.display("Draw!")
+                self.io.game_display("Draw!")
             else:
                 if croupier_bust != True:
-                    self.io.display(str(self.croupier.name) + " wins!")
+                    self.io.game_display(str(self.croupier.name) + " wins!")
                 else:
-                    self.io.display("CROUPIER BUST! " + str(self.human.name) + " wins!")  
+                    self.io.game_display("CROUPIER BUST! " + str(self.human.name) + " wins!")  
         else:
-           self.io.display("BUST! " + str(self.croupier.name) + " wins!")   
+           self.io.game_display("BUST! " + str(self.croupier.name) + " wins!")   

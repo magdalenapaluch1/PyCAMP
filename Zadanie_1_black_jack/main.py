@@ -5,7 +5,9 @@ from game import *
 
 if __name__ == '__main__':
 
-    game = Game(True)
+    guiEnabled = True
+
+    game = Game(guiEnabled)
 
     name = game.io.get_human_name()
 
@@ -18,3 +20,6 @@ if __name__ == '__main__':
     croupier_bust = game.croupier_decision()
 
     game.check_result(human_bust, croupier_bust)
+
+    if guiEnabled:
+        game.io.mainWindow.mainloop()
