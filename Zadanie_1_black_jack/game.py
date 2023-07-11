@@ -23,8 +23,12 @@ class Game:
         self.human.draw_card(self.deck)
         self.croupier.draw_card(self.deck)
 
-        self.io.human_display(self.human.get_hand())
-        self.io.croupier_display(self.croupier.get_first_hand())
+        # self.io.human_display(self.human.get_hand())
+        # self.io.croupier_display(self.croupier.get_first_hand())
+        self.io.show_card(self.human.hand[0], "human")
+        self.io.show_card(self.human.hand[1], "human")
+
+        self.io.show_card(self.croupier.hand[0], "croupier")
 
     def human_decision(self):
         decision = None
@@ -38,8 +42,8 @@ class Game:
                     pass
                 elif decision == 'h':
                     self.human.draw_card(self.deck)
-                    self.io.human_display("Your cards: " + str(self.human.hand))
-
+                    # self.io.human_display("Your cards: " + str(self.human.hand))
+                    self.io.show_card(self.human.hand[-1], "human")
                     if self.human.get_hand_value() > 21:
                         bust = True
                         break
@@ -52,9 +56,11 @@ class Game:
         return bust
     
     def croupier_decision(self):
+        self.io.show_card(self.croupier.hand[-1], "croupier")
         bust = False
         while self.croupier.get_hand_value() < 17:
             self.croupier.draw_card(self.deck)
+            self.io.show_card(self.croupier.hand[-1], "croupier")
 
         if self.croupier.get_hand_value() > 21:
             bust = True
@@ -63,8 +69,6 @@ class Game:
 
     def check_result(self, human_bust, croupier_bust):
         self.io.game_display("Game finished!")
-        self.io.human_display(self.human.get_hand())
-        self.io.croupier_display(self.croupier.get_hand())
 
         if human_bust != True:
             if (self.human.get_hand_value() > self.croupier.get_hand_value()):
