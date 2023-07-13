@@ -53,10 +53,10 @@ class GUI(IO):
         self.game_status = Text()
         self.game_status.grid(row = 2, column = 0, columnspan = 2, sticky = "NEWS")
 
-        self.player_cards_frame = Frame(bg = "white")
+        self.player_cards_frame = Frame(bg = "green")
         self.player_cards_frame.grid(row = 3, column = 0, sticky="news")
 
-        self.croupier_cards_frame = Frame(bg = "white")
+        self.croupier_cards_frame = Frame(bg = "green")
         self.croupier_cards_frame.grid(row = 3, column = 1, sticky="news")
 
         self.mainWindow.grid_columnconfigure(0, weight = 1)
@@ -91,12 +91,20 @@ class GUI(IO):
         if player == "human":
             card_frame = Frame(self.player_cards_frame, width = CARD_WIDTH, height = CARD_HEIGHT)
             card_frame.place(x = 10 + (CARD_WIDTH + 10) * GUI.player_cards + 10, y = 10)
-            card_label = Label(card_frame, text = card._name)
+            card_label = Label(card_frame, text = str(card), font = ("Arial", 15))
+            card_label_2 = Label(card_frame, text = str(card), font = ("Arial", 15))
+            card_label_3 = Label(card_frame, text = str(card)[-1], font = ("Arial", 40))
             card_label.place(x = 2, y = 2)
+            card_label_2.place(relx = 1, rely = 1, anchor = "se")
+            card_label_3.place(relx = 0.5, rely = 0.5, anchor = CENTER)
             GUI.player_cards += 1
         elif player == "croupier":
             card_frame = Frame(self.croupier_cards_frame, width = CARD_WIDTH, height = CARD_HEIGHT)
             card_frame.place(x = 10 + (CARD_WIDTH + 10) * GUI.croupier_cards, y = 10)
-            card_label = Label(card_frame, text = card._name)
+            card_label = Label(card_frame, text = str(card), font = ("Arial", 15))
+            card_label_2 = Label(card_frame, text = str(card), font = ("Arial", 15))
+            card_label_3 = Label(card_frame, text = str(card)[-1], font = ("Arial", 40))
             card_label.place(x = 2, y = 2)
+            card_label_2.place(relx = 1, rely = 1, anchor='se')
+            card_label_3.place(relx = 0.5, rely = 0.5, anchor = CENTER)
             GUI.croupier_cards += 1
