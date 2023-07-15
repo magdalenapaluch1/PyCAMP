@@ -16,6 +16,12 @@ class IO:
     
     def croupier_display(self, text):
         print(text)
+    
+    def show_card(self, card, player):
+        if player == "human":
+            print("Human card: ", card)
+        elif player == "croupier":
+            print("Croupier card: ",card)
 
     def get_human_name(self) -> str:
         return input("What is your name? ")
@@ -87,24 +93,25 @@ class GUI(IO):
     # def croupier_display(self, text):
     #     self.croupier_cards.insert(END, text + '\n')
 
+    def draw_card(self, card, parent_widget, card_number):
+        if card._color in ['hearts', 'diamonds']:
+            color = "red"
+        else:
+            color = "black"
+
+        card_frame = Frame(parent_widget, width = CARD_WIDTH, height = CARD_HEIGHT)
+        card_frame.place(x = 10 + (CARD_WIDTH + 10) * card_number + 10, y = 10)
+        card_label_upper_left = Label(card_frame, text = str(card), font = ("Arial", 15), fg = color)
+        card_label_lower_right = Label(card_frame, text = str(card), font = ("Arial", 15), fg = color)
+        card_label_center_symbol = Label(card_frame, text = str(card)[-1], font = ("Arial", 40), fg = color)
+        card_label_upper_left.place(x = 2, y = 2)
+        card_label_lower_right.place(relx = 1, rely = 1, anchor = "se")
+        card_label_center_symbol.place(relx = 0.5, rely = 0.5, anchor = CENTER)
+
     def show_card(self, card, player):
         if player == "human":
-            card_frame = Frame(self.player_cards_frame, width = CARD_WIDTH, height = CARD_HEIGHT)
-            card_frame.place(x = 10 + (CARD_WIDTH + 10) * GUI.player_cards + 10, y = 10)
-            card_label = Label(card_frame, text = str(card), font = ("Arial", 15))
-            card_label_2 = Label(card_frame, text = str(card), font = ("Arial", 15))
-            card_label_3 = Label(card_frame, text = str(card)[-1], font = ("Arial", 40))
-            card_label.place(x = 2, y = 2)
-            card_label_2.place(relx = 1, rely = 1, anchor = "se")
-            card_label_3.place(relx = 0.5, rely = 0.5, anchor = CENTER)
+            self.draw_card(card, self.player_cards_frame, GUI.player_cards)
             GUI.player_cards += 1
         elif player == "croupier":
-            card_frame = Frame(self.croupier_cards_frame, width = CARD_WIDTH, height = CARD_HEIGHT)
-            card_frame.place(x = 10 + (CARD_WIDTH + 10) * GUI.croupier_cards, y = 10)
-            card_label = Label(card_frame, text = str(card), font = ("Arial", 15))
-            card_label_2 = Label(card_frame, text = str(card), font = ("Arial", 15))
-            card_label_3 = Label(card_frame, text = str(card)[-1], font = ("Arial", 40))
-            card_label.place(x = 2, y = 2)
-            card_label_2.place(relx = 1, rely = 1, anchor='se')
-            card_label_3.place(relx = 0.5, rely = 0.5, anchor = CENTER)
+            self.draw_card(card, self.croupier_cards_frame, GUI.croupier_cards)
             GUI.croupier_cards += 1
