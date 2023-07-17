@@ -7,8 +7,10 @@ class Game:
     def __init__(self, gui) -> None:
         if gui is True:
             self.io = GUI()
+            self.guiEnable = True
         else:
             self.io = IO()
+            self.guiEnable = False
 
     def prepare(self, player_name):
         self.deck = Deck()
@@ -23,12 +25,13 @@ class Game:
         self.human.draw_card(self.deck)
         self.croupier.draw_card(self.deck)
 
-        # self.io.human_display(self.human.get_hand())
-        # self.io.croupier_display(self.croupier.get_first_hand())
         self.io.show_card(self.human.hand[0], "human")
         self.io.show_card(self.human.hand[1], "human")
 
         self.io.show_card(self.croupier.hand[0], "croupier")
+
+        if self.guiEnable is True:
+            self.io.enable_action_buttons()
 
     def human_decision(self):
         decision = None
@@ -39,7 +42,8 @@ class Game:
                 decision = self.io.get_human_decision()
 
                 if decision == 's':
-                    pass
+                    if self.guiEnable is True:
+                        self.io.disable_action_buttons()
                 elif decision == 'h':
                     self.human.draw_card(self.deck)
                     # self.io.human_display("Your cards: " + str(self.human.hand))

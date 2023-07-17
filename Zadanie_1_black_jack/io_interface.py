@@ -1,8 +1,9 @@
 from tkinter import *
 import tkinter.font as font
 
-CARD_HEIGHT = 250
+CARD_HEIGHT = 240
 CARD_WIDTH = 160
+CARDS_IN_ROW = 4
 
 class IO:
     def __init__(self) -> None:
@@ -35,8 +36,9 @@ class GUI(IO):
 
     def __init__(self) -> None:
         self.mainWindow = Tk()
-        self.mainWindow.geometry("1200x900")
+        self.mainWindow.geometry("1400x900")
         self.mainWindow.title("Black Jack")
+        self.mainWindow.resizable(False, False)
 
         entry_label = Label(text="What is your name? ")
         entry_label.grid(row = 0, column = 0, sticky = "W")
@@ -47,17 +49,25 @@ class GUI(IO):
         self.entry_button = Button(self.mainWindow, text="Enter", command=lambda: self.button_pressed.set("button pressed"))
         self.entry_button.grid(row = 0, column = 0, sticky = "E")
 
+        self.restart_pressed = StringVar()
+        self.restart_button = Button(self.mainWindow, text="Restart game", command=lambda: self.restart_pressed.set("restart pressed"))
+        self.restart_button["state"] = DISABLED
+        self.restart_button.grid(row = 0, column = 1)
+
         self.human_button_decision = StringVar()
         button_font = font.Font(size=30)
         self.hit_button = Button(self.mainWindow, text="Hit", bg="lightgreen", command=lambda: self.human_button_decision.set("h"))
         self.hit_button['font'] = button_font
-        self.hit_button.grid(row = 1, column = 0, sticky = "NEWS")
         self.stand_button = Button(self.mainWindow, text="Stand", bg="red3", command=lambda: self.human_button_decision.set("s"))
         self.stand_button['font'] = button_font
+
+        self.disable_action_buttons()
+
+        self.hit_button.grid(row = 1, column = 0, sticky = "NEWS")
         self.stand_button.grid(row = 1, column = 1, sticky = "NEWS")
 
-        self.game_status = Text()
-        self.game_status.grid(row = 2, column = 0, columnspan = 2, sticky = "NEWS")
+        self.game_status = Text(width = 30, height = 5)
+        self.game_status.grid(row = 2, column = 0, columnspan = 2)
 
         self.player_cards_frame = Frame(bg = "green")
         self.player_cards_frame.grid(row = 3, column = 0, sticky="news")
@@ -71,11 +81,12 @@ class GUI(IO):
         self.mainWindow.grid_rowconfigure(1, weight = 1)
         self.mainWindow.grid_rowconfigure(2, weight = 1)
         self.mainWindow.grid_rowconfigure(3, weight = 20)
-        #self.mainWindow.mainloop()
 
     def get_human_name(self) -> str:
 
         self.entry_button.wait_variable(self.button_pressed)
+        self.entry_button["state"] = DISABLED
+        self.entry["state"] = DISABLED
 
         return self.entry.get()
 
@@ -87,12 +98,6 @@ class GUI(IO):
     def game_display(self, text):
         self.game_status.insert(END, text + '\n')
 
-    # def human_display(self, text):
-    #     self.player_cards.insert(END, text + '\n')
-    
-    # def croupier_display(self, text):
-    #     self.croupier_cards.insert(END, text + '\n')
-
     def draw_card(self, card, parent_widget, card_number):
         if card._color in ['hearts', 'diamonds']:
             color = "red"
@@ -100,7 +105,7 @@ class GUI(IO):
             color = "black"
 
         card_frame = Frame(parent_widget, width = CARD_WIDTH, height = CARD_HEIGHT)
-        card_frame.place(x = 10 + (CARD_WIDTH + 10) * card_number + 10, y = 10)
+        card_frame.place(x = 10 + (CARD_WIDTH + 10) * (card_number % CARDS_IN_ROW) + 10, y = 10 + (CARD_HEIGHT + 10) * (card_number // CARDS_IN_ROW))
         card_label_upper_left = Label(card_frame, text = str(card), font = ("Arial", 15), fg = color)
         card_label_lower_right = Label(card_frame, text = str(card), font = ("Arial", 15), fg = color)
         card_label_center_symbol = Label(card_frame, text = str(card)[-1], font = ("Arial", 40), fg = color)
@@ -115,3 +120,11 @@ class GUI(IO):
         elif player == "croupier":
             self.draw_card(card, self.croupier_cards_frame, GUI.croupier_cards)
             GUI.croupier_cards += 1
+
+    def disable_action_buttons(self):
+        self.hit_button["state"] = DISABLED
+        self.stand_button["state"] = DISABLED
+
+    def enable_action_buttons(self):
+        self.hit_button["state"] = NORMAL
+        self.stand_button["state"] = NORMAL

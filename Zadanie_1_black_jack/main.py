@@ -1,11 +1,24 @@
 from card import *
-from deck import Deck
 from player import *
 from game import *
+import sys
+import os
+import argparse
+
+def restart_program(event):
+    python = sys.executable
+    os.execl(python, python, * sys.argv)
 
 if __name__ == '__main__':
 
-    guiEnabled = True
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--cmd', required = False, default = "on")
+    args = parser.parse_args()
+
+    if args.cmd == "on":
+        guiEnabled = False
+    else:
+        guiEnabled = True
 
     game = Game(guiEnabled)
 
@@ -22,4 +35,6 @@ if __name__ == '__main__':
     game.check_result(human_bust, croupier_bust)
 
     if guiEnabled:
+        game.io.restart_button["state"] = NORMAL
+        game.io.restart_button.bind("<Button-1>", restart_program)
         game.io.mainWindow.mainloop()
