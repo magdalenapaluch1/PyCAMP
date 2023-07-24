@@ -27,6 +27,7 @@ class Game:
 
         self.io.show_card(self.human.hand[0], "human")
         self.io.show_card(self.human.hand[1], "human")
+        self.io.update_human_points(str(self.human.get_hand_value()))
 
         self.io.show_card(self.croupier.hand[0], "croupier")
 
@@ -48,6 +49,7 @@ class Game:
                     self.human.draw_card(self.deck)
                     # self.io.human_display("Your cards: " + str(self.human.hand))
                     self.io.show_card(self.human.hand[-1], "human")
+                    self.io.update_human_points(str(self.human.get_hand_value()))
                     if self.human.get_hand_value() > 21:
                         bust = True
                         break
@@ -61,10 +63,12 @@ class Game:
     
     def croupier_decision(self):
         self.io.show_card(self.croupier.hand[-1], "croupier")
+        self.io.update_croupier_points(str(self.croupier.get_hand_value()))
         bust = False
         while self.croupier.get_hand_value() < 17:
             self.croupier.draw_card(self.deck)
             self.io.show_card(self.croupier.hand[-1], "croupier")
+            self.io.update_croupier_points(str(self.croupier.get_hand_value()))
 
         if self.croupier.get_hand_value() > 21:
             bust = True

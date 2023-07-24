@@ -12,7 +12,7 @@ def restart_program(event):
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('--cmd', required = False, default = "on")
+    parser.add_argument('--cmd', required = False, default = "off")
     args = parser.parse_args()
 
     if args.cmd == "on":

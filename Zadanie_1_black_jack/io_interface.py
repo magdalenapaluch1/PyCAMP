@@ -66,7 +66,14 @@ class GUI(IO):
         self.hit_button.grid(row = 1, column = 0, sticky = "NEWS")
         self.stand_button.grid(row = 1, column = 1, sticky = "NEWS")
 
+        self.human_points_label = Label(text="", font = ("Arial", 25))
+        self.human_points_label.grid(row = 2, column = 0)
+
+        self.croupier_points_label = Label(text="", font = ("Arial", 25))
+        self.croupier_points_label.grid(row = 2, column = 1)
+
         self.game_status = Text(width = 30, height = 5)
+        self.game_status["state"] = DISABLED
         self.game_status.grid(row = 2, column = 0, columnspan = 2)
 
         self.player_cards_frame = Frame(bg = "green")
@@ -96,7 +103,9 @@ class GUI(IO):
         return self.human_button_decision.get()
 
     def game_display(self, text):
+        self.game_status["state"] = NORMAL
         self.game_status.insert(END, text + '\n')
+        self.game_status["state"] = DISABLED
 
     def draw_card(self, card, parent_widget, card_number):
         if card._color in ['hearts', 'diamonds']:
@@ -128,3 +137,9 @@ class GUI(IO):
     def enable_action_buttons(self):
         self.hit_button["state"] = NORMAL
         self.stand_button["state"] = NORMAL
+
+    def update_human_points(self, points):
+        self.human_points_label["text"] = points
+
+    def update_croupier_points(self, points):
+        self.croupier_points_label["text"] = points
