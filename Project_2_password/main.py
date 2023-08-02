@@ -1,15 +1,11 @@
 from password_checker import Password_Checker
-    
+
 if __name__ == '__main__':
 
     print("Check your password!")
     #user_password = input("Your password: ")
-    user_password = "Polska1@"
+    user_password = "Polska"
 
-    password = Password_Checker()
-    safe_result = password.is_password_safe(user_password)
-
-    if safe_result is False:
-        print("Your password is not safe, please change it!")
-    else:
-        print("Your password is safe.")
+    pc = Password_Checker()
+    safe_result = pc.is_password_safe(user_password)
+    pc.print_password_results(safe_result)
