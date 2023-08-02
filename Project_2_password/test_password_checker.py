@@ -7,7 +7,7 @@ def test_password_too_short():
     pc = Password_Checker()
     safe_result = pc.is_password_safe(password)
 
-    assert safe_result is False
+    assert "too_short" in safe_result
 
 def test_password_non_digit():
 
@@ -15,7 +15,7 @@ def test_password_non_digit():
     pc = Password_Checker()
     safe_result = pc.is_password_safe(password)
 
-    assert safe_result is False
+    assert "no_digit" in safe_result
 
 def test_password_non_special_character():
 
@@ -23,7 +23,7 @@ def test_password_non_special_character():
     pc = Password_Checker()
     safe_result = pc.is_password_safe(password)
 
-    assert safe_result is False
+    assert "no_special" in safe_result
 
 def test_password_no_upper_character():
 
@@ -31,7 +31,7 @@ def test_password_no_upper_character():
     pc = Password_Checker()
     safe_result = pc.is_password_safe(password)
 
-    assert safe_result is False
+    assert "no_upper" in safe_result
 
 def test_password_no_lower_character():
 
@@ -39,4 +39,12 @@ def test_password_no_lower_character():
     pc = Password_Checker()
     safe_result = pc.is_password_safe(password)
 
-    assert safe_result is False
+    assert "no_lower" in safe_result
+
+def test_safe_password():
+
+    password = "Polska12@"
+    pc = Password_Checker()
+    safe_result = pc.is_password_safe(password)
+
+    assert "password_safe" in safe_result
