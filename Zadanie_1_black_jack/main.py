@@ -3,26 +3,15 @@ from player import *
 from game import *
 import sys
 import os
-import argparse
 
 def restart_program(event):
     python = sys.executable
     os.execl(python, python, * sys.argv)
 
-if __name__ == '__main__':
+def main():
+    game = Game()
 
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--cmd', required = False, default = "off")
-    args = parser.parse_args()
-
-    if args.cmd == "on":
-        guiEnabled = False
-    else:
-        guiEnabled = True
-
-    game = Game(guiEnabled)
-
-    name = game.io.get_human_name()
+    name = game.gui.get_human_name()
 
     game.prepare(name)
 
@@ -34,7 +23,9 @@ if __name__ == '__main__':
 
     game.check_result(human_bust, croupier_bust)
 
-    if guiEnabled:
-        game.io.restart_button["state"] = NORMAL
-        game.io.restart_button.bind("<Button-1>", restart_program)
-        game.io.mainWindow.mainloop()
+    game.gui.restart_button["state"] = NORMAL
+    game.gui.restart_button.bind("<Button-1>", restart_program)
+    game.gui.mainWindow.mainloop()
+
+if __name__ == '__main__':
+    main()

@@ -5,32 +5,7 @@ CARD_HEIGHT = 240
 CARD_WIDTH = 160
 CARDS_IN_ROW = 4
 
-class IO:
-    def __init__(self) -> None:
-        pass
-
-    def game_display(self, text):
-        print(text)
-
-    def human_display(self, text):
-        print(text)
-    
-    def croupier_display(self, text):
-        print(text)
-    
-    def show_card(self, card, player):
-        if player == "human":
-            print("Human card: ", card)
-        elif player == "croupier":
-            print("Croupier card: ",card)
-
-    def get_human_name(self) -> str:
-        return input("What is your name? ")
-
-    def get_human_decision(self) -> str:
-        return input("(s)tand or (h)it? ")
-    
-class GUI(IO):
+class GUI():
     player_cards = 0
     croupier_cards = 0
 
@@ -50,16 +25,17 @@ class GUI(IO):
         self.entry_button.grid(row = 0, column = 0, sticky = "E")
 
         self.restart_pressed = StringVar()
-        self.restart_button = Button(self.mainWindow, text="Restart game", command=lambda: self.restart_pressed.set("restart pressed"))
+        self.restart_button = Button(self.mainWindow, text="Restart game",
+                                     command=lambda: self.restart_pressed.set("restart pressed"))
         self.restart_button["state"] = DISABLED
         self.restart_button.grid(row = 0, column = 1)
 
         self.human_button_decision = StringVar()
         button_font = font.Font(size=30)
-        self.hit_button = Button(self.mainWindow, text="Hit", bg="lightgreen", command=lambda: self.human_button_decision.set("h"))
-        self.hit_button['font'] = button_font
-        self.stand_button = Button(self.mainWindow, text="Stand", bg="red3", command=lambda: self.human_button_decision.set("s"))
-        self.stand_button['font'] = button_font
+        self.hit_button = Button(self.mainWindow, text="Hit", bg="lightgreen",
+                                 command=lambda: self.human_button_decision.set("h"), font=button_font)
+        self.stand_button = Button(self.mainWindow, text="Stand", bg="red3",
+                                   command=lambda: self.human_button_decision.set("s"), font = button_font)
 
         self.disable_action_buttons()
 
